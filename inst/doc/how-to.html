@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="John Coene" />
+
+<meta name="date" content="2016-05-07" />
+
+<title>How to use rodham</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="fluid-row" id="header">
+
+
+<h1 class="title">How to use rodham</h1>
+<h4 class="author"><em>John Coene</em></h4>
+<h4 class="date"><em>2016-05-07</em></h4>
+
+</div>
+
+
+<div id="what-is-this-anyway" class="section level2">
+<h2>What is this anyway?</h2>
+<p><code>rodham</code> aims at easing access and analysis of Hillary Rodham Clinton’s <em>personal</em> emails which are deemed important to the author in light of recent events.</p>
+</div>
+<div id="get-started" class="section level2">
+<h2>Get started</h2>
+<p>The function <code>search_emails</code> allows fetching the list of emails that were released. These are available either by calling the Wall Street Journal’s <a href="graphics.wsj.com/hillary-clinton-email-documents/">API</a> or via the built-in dataset (recommended).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rodham)
+
+<span class="co"># get list of emails</span>
+<span class="kw">data</span>(<span class="st">&quot;emails&quot;</span>)
+
+<span class="co"># equivalent to:</span>
+em &lt;-<span class="st"> </span><span class="kw">search_emails</span>()
+
+<span class="kw">identical</span>(emails, em)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="simple-network" class="section level2">
+<h2>Simple Network</h2>
+<p>Using the list of emails (<code>data(&quot;emails&quot;)</code>) we can plot the network of emails using <code>edges_emails</code> which returns a list of edges meant for a directed network.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">edges &lt;-<span class="st"> </span><span class="kw">edges_emails</span>(emails)
+knitr::<span class="kw">kable</span>(<span class="kw">head</span>(edges))</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">from</th>
+<th align="left">to</th>
+<th align="right">freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">Cheryl Mills</td>
+<td align="left">Hillary Clinton</td>
+<td align="right">4895</td>
+</tr>
+<tr class="even">
+<td align="left">105</td>
+<td align="left">Jake Sullivan</td>
+<td align="left">Hillary Clinton</td>
+<td align="right">4538</td>
+</tr>
+<tr class="odd">
+<td align="left">57</td>
+<td align="left">Huma Abedin</td>
+<td align="left">Hillary Clinton</td>
+<td align="right">3726</td>
+</tr>
+<tr class="even">
+<td align="left">139</td>
+<td align="left">Hillary Clinton</td>
+<td align="left">Jake Sullivan</td>
+<td align="right">1641</td>
+</tr>
+<tr class="odd">
+<td align="left">143</td>
+<td align="left">Hillary Clinton</td>
+<td align="left">Cheryl Mills</td>
+<td align="right">1312</td>
+</tr>
+<tr class="even">
+<td align="left">153</td>
+<td align="left">Hillary Clinton</td>
+<td align="left">Huma Abedin</td>
+<td align="right">951</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>freq</code> corresponds to the occurences of edges (number of emails). The list of edges alone allows building a simple network.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g &lt;-<span class="st"> </span>igraph::<span class="kw">graph.data.frame</span>(edges)
+<span class="co"># plot network</span>
+<span class="kw">plot</span>(g, <span class="dt">layout =</span> igraph::<span class="kw">layout.fruchterman.reingold</span>(g),
+     <span class="dt">vertex.label.color =</span> <span class="kw">hsv</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">s =</span> <span class="dv">0</span>, <span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">alpha =</span> <span class="fl">0.0</span>), 
+     <span class="dt">vertex.size =</span> <span class="kw">log1p</span>(igraph::<span class="kw">degree</span>(g)) *<span class="st"> </span><span class="dv">2</span>, <span class="dt">edge.arrow.size =</span> <span class="fl">0.1</span>, 
+     <span class="dt">edge.arrow.width =</span> <span class="fl">0.1</span>, <span class="dt">edge.width =</span> <span class="kw">log1p</span>(igraph::<span class="kw">E</span>(g)$freq)/<span class="dv">4</span>,
+     <span class="dt">vertex.frame.color=</span><span class="st">&quot;#FFFFFF&quot;</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" alt /></p>
+</div>
+<div id="get-emails-content" class="section level2">
+<h2>Get emails content</h2>
+<p>In the above we gather a reasonable amount of meta-data on the emails but we do not get the actual content of the emails. To do so we need to download the emails—as released—in PDF format and extract the text. First we are going to need xpdf to extract the content; you can either download it manually from the <a href="www.foolabs.com/xpdf/download.html">download setion</a> or you can attempt using <code>get_xpdf</code> (only tested on windows). <code>get_xpdf</code> downloads then unzips the extractor then returns the full path to the pdftotext.exe file required for the next step.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xpdf &lt;-<span class="st"> </span><span class="kw">get_xpdf</span>(<span class="dt">dest =</span> <span class="st">&quot;C:/&quot;</span>) <span class="co"># get extractor</span>
+<span class="co"># or if you downloaded manually point to pdftotext</span>
+xpdf &lt;-<span class="st"> &quot;your/path/xpdfbin-win-3.04/bin64/pdftotext.exe&quot;</span></code></pre></div>
+<p>Once we have the extractor we can fetch some emails using <code>get_emails</code>, the function requires you to select a specific <code>release</code>, here are the valid ones:</p>
+<ul>
+<li>Benghazi</li>
+<li>June</li>
+<li>July</li>
+<li>August</li>
+<li>September</li>
+<li>October</li>
+<li>November</li>
+<li>January 7</li>
+<li>February 13</li>
+<li>January 19</li>
+<li>February 29</li>
+<li>December</li>
+<li>Non-disclosure</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dir &lt;-<span class="st"> &quot;./rodham&quot;</span> <span class="co"># this is where the emails will be saved</span>
+<span class="kw">dir.create</span>(dir) <span class="co"># directory must exist</span>
+emails_bengh &lt;-<span class="st"> </span><span class="kw">get_emails</span>(<span class="dt">release =</span> <span class="st">&quot;Benghazi&quot;</span>, <span class="dt">save.dir =</span> dir, <span class="dt">extractor =</span> xpdf)</code></pre></div>
+<p>The function downloads, unzips and extracts the content from all email; note that this may take some time. The files will be extracted in a folder named after the requested <code>release</code> and its full path returned.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">files &lt;-<span class="st"> </span><span class="kw">list.files</span>(emails_bengh) <span class="co"># list extracted files</span>
+content &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span>:<span class="kw">length</span>(files), function(x){
+  <span class="kw">readLines</span>(<span class="kw">paste0</span>(emails_bengh, <span class="st">&quot;/&quot;</span>, files[[x]])) <span class="co"># read files</span>
+})</code></pre></div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
