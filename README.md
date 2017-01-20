@@ -2,6 +2,8 @@
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/JohnCoene/rodham?branch=master&svg=true)](https://ci.appveyor.com/project/JohnCoene/rodham)
 [![Coverage Status](https://img.shields.io/coveralls/JohnCoene/rodham.svg)](https://coveralls.io/r/JohnCoene/rodham?branch=master)
 [![codecov](https://codecov.io/gh/JohnCoene/rodham/branch/master/graph/badge.svg)](https://codecov.io/gh/JohnCoene/rodham)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rodham)](https://cran.r-project.org/package=rodham)
+[![CRAN_DL_Badge](http://cranlogs.r-pkg.org/badges/grand-total/rodham)](http://cranlogs.r-pkg.org/badges/grand-total/rodham)
 
 ![img](https://raw.githubusercontent.com/JohnCoene/projects/gh-pages/img/modals/rodham.JPG)
 
@@ -11,10 +13,13 @@ Fetch and process Hillary Rodham Clinton's *personal* emails.
 
 ## Installation
 
-You can install rodham from github with:
+You can install rodham from CRAN or Github with:
 
 ```R
-# install.packages("devtools")
+# from CRAN
+install.packages("rodham")
+
+# dev version
 devtools::install_github("JohnCoene/rodham")
 ```
 
@@ -31,7 +36,7 @@ g <- igraph::graph.data.frame(edges)
 # plot 
 plot(g)
 
-# get email content
+# get pdf extractor
 ext <- get_xpdf()
 
 # get emails related to Benghazi released in December
@@ -41,7 +46,6 @@ content <- lapply(1:length(files), function(x){
     readLines(paste0(emails_bengh, "/", files[[x]]))
 })
 ```
-See vignette for more examples: `devtools::build_vignettes()`
 
 # Project Vault
 

@@ -15,7 +15,7 @@ vignette: >
 
 ## Get started
 
-The function `search_emails` allows fetching the list of emails that were released. These are available either by calling the Wall Street Journal's [API](graphics.wsj.com/hillary-clinton-email-documents/) or via the built-in dataset (recommended).
+The function `search_emails` allows fetching the list of emails that were released. These are available either by calling the Wall Street Journal's [API](http://graphics.wsj.com/hillary-clinton-email-documents/) or via the built-in dataset (recommended).
 
 ```{r opts, echo=FALSE}
 knitr::opts_chunk$set(
