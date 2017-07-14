@@ -4,7 +4,7 @@
 \alias{get_emails}
 \title{Get emails and its contents}
 \usage{
-get_emails(release, save.dir = getwd(), extractor)
+get_emails(release, save.dir = getwd(), extractor, ...)
 }
 \arguments{
 \item{release}{Name of the batch of release of emails; see details.}
@@ -12,7 +12,9 @@ get_emails(release, save.dir = getwd(), extractor)
 \item{save.dir}{Directory where to save the extracted text defaults to
 \code{getwd()}}
 
-\item{extractor}{Full path to pdf extractor (text to pdf), see details.}
+\item{extractor}{Full path to pdf extractor \code{pdftotext}, see details.}
+
+\item{...}{additional parameters to pass to \code{pdftotext}.}
 }
 \value{
 Fetches email zip file from the WSJ and extract text files in
@@ -53,30 +55,24 @@ unzip the text to pdf extractor. See examples.
 ext <- get_xpdf()
 
 # create
-dir.create("./emails")
+dir.create("emails")
 
 # get emails released in august
 emails_aug <- get_emails(release = "August", save.dir = "./emails",
                      extractor = ext)
 
 # use manually downloaded extractor
-ext <- "C:/xpdfbin-win-3.04/bin64/pdftotext.exe"
+# ext <- "C:/xpdfbin-win-3.04/bin64/pdftotext.exe"
 
 # get emails related to Benghazi released in December
 emails_bengh <- get_emails(release = "Benghazi", extractor = ext,
                            save.dir = "./emails")
-
-files <- list.files(emails_bengh)
-content <- lapply(1:length(files), function(x){
-   readLines(paste0(emails_bengh, "/", files[[x]]))
-})
 }
 
+}
+\seealso{
+\code{\link{get_xpdf}}, \code{\link{download_emails}}, \code{\link{extract_emails}}
 }
 \author{
 John Coene \email{jcoenep@gmail.com}
 }
-\seealso{
-\code{\link{get_xpdf}}
-}
-

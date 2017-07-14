@@ -59,13 +59,15 @@ plot(g, layout = igraph::layout.fruchterman.reingold(g),
 
 ## Get emails content
 
+### The fast way
+
 In the above we gather a reasonable amount of meta-data on the emails but we do not get the actual content of the emails. To do so we need to download the emails---as released---in PDF format and extract the text. First we are going to need xpdf to extract the content; you can either download it manually from the [download setion](www.foolabs.com/xpdf/download.html) or you can attempt using  `get_xpdf` (only tested on windows).
 `get_xpdf` downloads then unzips the extractor then returns the full path to the pdftotext.exe file required for the next step.
 
 ```{r get xpdf, echo=TRUE, eval=FALSE}
 xpdf <- get_xpdf(dest = "C:/") # get extractor
 # or if you downloaded manually point to pdftotext
-xpdf <- "your/path/xpdfbin-win-3.04/bin64/pdftotext.exe"
+xpdf <- "your/path/xpdfbin-win-3.04/bin64/pdftotext"
 ```
 
 Once we have the extractor we can fetch some emails using `get_emails`, the function requires you to select a specific `release`, here are the valid ones:
@@ -85,16 +87,44 @@ Once we have the extractor we can fetch some emails using `get_emails`, the func
 * Non-disclosure
 
 ```{r get emails, echo=TRUE, eval=FALSE}
-dir <- "./rodham" # this is where the emails will be saved
 dir.create(dir) # directory must exist
-emails_bengh <- get_emails(release = "Benghazi", save.dir = dir, extractor = xpdf)
+emails_bengh <- get_emails(release = "Benghazi", save.dir = "./rodham", extractor = xpdf)
 ```
 
-The function downloads, unzips and extracts the content from all email; note that this may take some time. The files will be extracted in a folder named after the requested `release` and its full path returned.
+`get_emails` downloads, unzips and extracts the content from all email; note that this may take some time. The files will be extracted in a folder named after the requested `release` and its full path returned (for future use).
+
+### Step by step
+
+Alternatively you may want to proceed step by step. This is particularly useful if your temp folder requires super user or if you want to keep the pdf files.
+
+```{r download emails, echo=TRUE, eval=FALSE}
+# download specific release
+dl <- download_emails("August") # returns full pass to zip
+
+pdf <- "emails_pdf" # directory where pdf will be extracted to
+txt <- "emails.text" # directory where txt will be extracted to
+
+# create directories
+dir.create(pdf)
+dir.create(emails_bengh)
+
+unzip(dl, exdir = pdf)
+
+# get emails released in august
+extract_emails(pdf, save.dir = txt, extractor = ext)
+```
+
+## Load the emails
+
+Now we can read the `.txt` files in R to a named list where the each email is named after its corresponding file.
 
 ```{r read emails, echo=TRUE, eval=FALSE}
-files <- list.files(emails_bengh) # list extracted files
-content <- lapply(1:length(files), function(x){
-  readLines(paste0(emails_bengh, "/", files[[x]])) # read files
-})
+contents <- load_emails(emails_bengh)
+```
+
+You can clean the emails with `clean_content` it'll remove some comments and other unwanted lines.
+
+```{r clean emails, echo=TRUE, eval=FALSE}
+cont <- get_content(contents)
+cont <- clean_content(cont)
 ```

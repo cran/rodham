@@ -10,20 +10,25 @@ get_xpdf(dest = getwd())
 \item{dest}{Destination folder defaults to \code{getwd()}}
 }
 \value{
-Returns full path to pdftotext executable
+Returns full path to \code{pdftotext} executable
 }
 \description{
 Downloads and extracts pdf to text extractor, see details.
 }
 \details{
-If function fails you can download the
+If the function fails you can download the
 extractor manually from \url{http://www.foolabs.com/xpdf/}
-(tested on Windows only)
+then set it manually as shown in examples \code{\link{get_emails}}
+
+Tested on:
+\itemize{
+  \item{Windows}
+  \item{Linux}
 }
-\author{
-John Coene \email{jcoenep@gmail.com}
 }
 \seealso{
 \code{\link{get_emails}}
 }
-
+\author{
+John Coene \email{jcoenep@gmail.com}
+}

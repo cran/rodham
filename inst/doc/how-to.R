@@ -31,16 +31,32 @@ plot(g, layout = igraph::layout.fruchterman.reingold(g),
 ## ----get xpdf, echo=TRUE, eval=FALSE-------------------------------------
 #  xpdf <- get_xpdf(dest = "C:/") # get extractor
 #  # or if you downloaded manually point to pdftotext
-#  xpdf <- "your/path/xpdfbin-win-3.04/bin64/pdftotext.exe"
+#  xpdf <- "your/path/xpdfbin-win-3.04/bin64/pdftotext"
 
 ## ----get emails, echo=TRUE, eval=FALSE-----------------------------------
-#  dir <- "./rodham" # this is where the emails will be saved
 #  dir.create(dir) # directory must exist
-#  emails_bengh <- get_emails(release = "Benghazi", save.dir = dir, extractor = xpdf)
+#  emails_bengh <- get_emails(release = "Benghazi", save.dir = "./rodham", extractor = xpdf)
+
+## ----download emails, echo=TRUE, eval=FALSE------------------------------
+#  # download specific release
+#  dl <- download_emails("August") # returns full pass to zip
+#  
+#  pdf <- "emails_pdf" # directory where pdf will be extracted to
+#  txt <- "emails.text" # directory where txt will be extracted to
+#  
+#  # create directories
+#  dir.create(pdf)
+#  dir.create(emails_bengh)
+#  
+#  unzip(dl, exdir = pdf)
+#  
+#  # get emails released in august
+#  extract_emails(pdf, save.dir = txt, extractor = ext)
 
 ## ----read emails, echo=TRUE, eval=FALSE----------------------------------
-#  files <- list.files(emails_bengh) # list extracted files
-#  content <- lapply(1:length(files), function(x){
-#    readLines(paste0(emails_bengh, "/", files[[x]])) # read files
-#  })
+#  contents <- load_emails(emails_bengh)
+
+## ----clean emails, echo=TRUE, eval=FALSE---------------------------------
+#  cont <- get_content(contents)
+#  cont <- clean_content(cont)
 

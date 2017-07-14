@@ -1,3 +1,19 @@
+# rodham 0.1.0
+
+## Additions
+
+* `hrc_names` [list of names from WSJ](https://github.com/wsjdata/clinton-email-cruncher/blob/master/HRCEMAIL_names.csv)
+* `clean_content` function to clean comments and other *less useful* lines added.
+* `load_emails` function to load all downloaded emails added; returns object of class `rodham`.
+* `download_emails` function added to download specific release.
+* `extract_emails` function to parse downloaded emails (`download_emails`).
+* `get_*` get methods to retrieve metadata and content from emails (`rodham` class).
+
+## Bug fixes
+
+* `get_xpdf` now returns the correct path.
+* `get_xpdf` tested on Windows and Ubuntu.
+
 # rodham 0.0.2
 
 ## Bug fixes
