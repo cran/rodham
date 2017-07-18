@@ -35,3 +35,28 @@ load_emails <- function(dir){
   files <- list.files(dir) # list files
   constructEmails(dir, files)
 }
+
+#' Tidy contents
+#'
+#' Tidy email contents
+#'
+#' @param content email content as returned by \code{\link{get_content}}.
+#'
+#' @examples
+#' \dontrun{
+#' content <- get_content(content)
+#' content <- clean_content(content)
+#' tidy <- tidy_emails(content)
+#' }
+#'
+#' @return A two-column \code{tibble} with emails document id in one column (\code{emails}) and the email \code{content} in another.
+#'
+#' @author John Coene \email{jcoenep@gmail.com}
+#'
+#' @export
+tidy_emails <- function(content){
+  names <- names(content)
+  length <- sapply(content, length)
+  content <- unlist(content)
+  tibble::tibble(emails = rep(names, length), content = content)
+}

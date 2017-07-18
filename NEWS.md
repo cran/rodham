@@ -1,3 +1,14 @@
+# rodham 0.1.1
+
+## Additions
+
+* `tidy_emails` - returns tibble of emails content
+* `get_id` - returns emails document ids
+
+## Bug fixes
+
+* correct names returned by `load_emails`
+
 # rodham 0.1.0
 
 ## Additions

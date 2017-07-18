@@ -56,7 +56,7 @@ print(hrc_emails)
 #> 4366 emails
 
 # get emails content
-cont <- get_content(hrc_email)
+cont <- get_content(hrc_emails)
 
 # clean emails
 cont <- clean_content(cont)
@@ -69,9 +69,7 @@ cont <- clean_content(cont)
 library(echarts)
 library(dplyr)
 
-communication <- get_com(hrc_emails) # number of other get_* methods exist
-
-communication %>%
+get_com(hrc_emails) %>%
   filter(from != "") %>%
   count(from) %>%
   echart(from) %>%
@@ -82,5 +80,5 @@ communication %>%
 
 ## Resources
 
-* [Search the emails online with the WSJ](http://graphics.wsj.com/hillary-clinton-email-documents/) - `hrc_names` in package
-* [Handy list of names from WSJ](https://github.com/wsjdata/clinton-email-cruncher/blob/master/HRCEMAIL_names.csv)
+* [Search the emails online with the WSJ](http://graphics.wsj.com/hillary-clinton-email-documents/)
+* [Handy list of names from WSJ](https://github.com/wsjdata/clinton-email-cruncher/blob/master/HRCEMAIL_names.csv) - `hrc_names` in package
